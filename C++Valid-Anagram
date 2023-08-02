@@ -1,0 +1,43 @@
+Better Runtime:
+
+class Solution {
+public:
+    bool isAnagram(string s, string t) {
+        unordered_map<char, int> hashMap;
+        for(char i:s){
+            if (hashMap.find(i)== hashMap.end()){
+                hashMap.insert({i,1});
+            }
+            else hashMap[i]+=1;
+        }
+        for(char i:t){
+            if (hashMap.find(i)== hashMap.end()|| (hashMap[i]==0)) return false;
+            else hashMap[i]-=1;
+        }
+        for (auto i : hashMap){
+            if (i.second!=0) return false;
+        }
+        return true;
+    }
+};
+
+Better Memory:
+
+class Solution {
+public:
+    bool isAnagram(string s, string t) {
+        unordered_map<char, int> hashMap;
+        for(char i:s){
+            if (hashMap.find(i)== hashMap.end()){
+                hashMap.insert({i,1});
+            }
+            else hashMap[i]+=1;
+        }
+        for(char i:t){
+            if (hashMap.find(i)== hashMap.end()) return false;
+            else if (hashMap[i]==1) hashMap.erase(i);
+            else hashMap[i]-=1;
+        }
+        return hashMap.empty();
+    }
+};
