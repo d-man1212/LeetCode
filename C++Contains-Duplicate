@@ -1,0 +1,28 @@
+Unoptimized:
+
+class Solution {
+public:
+    bool containsDuplicate(vector<int>& nums) {
+        vector<int>::iterator iter, iter1;
+        for (iter = nums.begin(); iter != nums.end(); ++iter) {
+    for (iter1 = iter + 1; iter1 != nums.end(); ++iter1) if(*iter1==*iter){
+        return true;
+    }
+  }
+        return false;
+    }
+};
+
+Optimized:
+
+class Solution {
+public:
+    bool containsDuplicate(vector<int>& nums) {
+        unordered_set<int> hashSet;
+        for (const int &i : nums) {
+            if (hashSet.find(i) != hashSet.end()) return true;
+            else hashSet.insert(i);
+        }
+        return false;
+    }
+};
