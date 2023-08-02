@@ -1,0 +1,17 @@
+class Solution {
+public:
+    vector<int> twoSum(vector<int>& nums, int target) {
+        unordered_set<int> hashSet;
+        vector<int> sum;
+        for (int i = 0; i < nums.size(); ++i) {
+            if (hashSet.find(target - nums[i]) != hashSet.end()) {
+                auto it = find(nums.begin(), nums.end(), target - nums[i]);
+                sum.push_back(distance(nums.begin(), it));
+                sum.push_back(i);
+                return sum;
+            }
+            else hashSet.insert(nums[i]);
+        }
+        return sum; 
+    }
+};
