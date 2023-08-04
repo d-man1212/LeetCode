@@ -1,4 +1,6 @@
-class Solution {
+Done using C++
+
+Solution {
 public:
     vector<int> twoSum(vector<int>& nums, int target) {
         unordered_set<int> hashSet;
