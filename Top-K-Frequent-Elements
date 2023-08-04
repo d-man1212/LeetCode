@@ -1,0 +1,82 @@
+PYTHON:
+
+class Solution(object):
+    def topKFrequent(self, nums, k):
+        return sorted(set(nums),key= lambda x:nums.count(x), reverse=True)[:k]
+
+C++
+
+class Solution {
+public:
+    vector<int> topKFrequent(vector<int>& nums, int k) {
+        unordered_map<int,int> map;
+        for(int num : nums){
+            map[num]++;
+        }
+
+        vector<int> res;
+        /** use the priority queue, like the max-heap , we will keep (size-k) smallest elements in the queue**/
+        /** pair<first, second>: first is frequency,  second is number **/
+        priority_queue<pair<int,int>> pq; 
+        for(auto it = map.begin(); it != map.end(); it++){
+            pq.push(make_pair(it->second, it->first));
+            /** onece the size bigger than size-k, we will pop the value, which is the top k frequent element value **/
+            if(pq.size() > (int)map.size() - k){
+                res.push_back(pq.top().second);
+                pq.pop();
+            }
+        }
+        return res;
+    }
+};
+
+class Solution {
+public:
+    vector<int> topKFrequent(vector<int>& nums, int k) {
+        unordered_map<int, int> m;
+        for (int  num : nums)
+            ++m[num];
+        /** as the word frequencies is at most nums.size() **/
+        vector<vector<int>> buckets(nums.size() + 1);
+        for (auto p : m) 
+            buckets[p.second].push_back(p.first);
+        /** we can fetch the top k largest element value from the array **/    
+        vector<int> ans;
+        for (int i = buckets.size() - 1; i >= 0 && ans.size() < k; --i)
+        {
+            for (int num : buckets[i])
+            {
+                ans.push_back(num);
+                if (ans.size() == k)
+                    break;
+            }
+        }
+        return ans;
+    }
+};
+
+class Solution {
+public:
+    vector<int> topKFrequent(vector<int>& nums, int k) {
+        unordered_map<int, int> counts;
+        for (const auto& i : nums) 
+        {
+            ++ counts[i];
+        }
+        /** pair : (-frequency, key) **/
+        vector<pair<int, int>> p;
+        for (auto it = counts.begin(); it != counts.end(); ++ it) 
+        {
+            p.emplace_back(-(it->second), it->first);
+        }
+        /** nth_element() call will put the  (k-1)-th element on its position,
+         * the left (k-1) element is smaller than the key, the right bigger **/
+        nth_element(p.begin(), p.begin() + k - 1, p.end());
+        vector<int> result;
+        for (int i = 0; i < k; i++) 
+        {
+            result.emplace_back(p[i].second);
+        }
+        return result;
+    }
+};
