@@ -1,0 +1,76 @@
+python:
+
+class Solution(object):
+    def isValidSudoku(self, board):
+        for i in range(1,10):
+            x = [False] * 9
+            y = [False] * 9
+            z = [False] * 9
+            
+            for index1, value1 in enumerate(board):
+                for index2, value2 in enumerate(value1):
+                    if value2 == str(i):
+                        if x[index1] or y[index2]:
+                            return False
+                        
+                        temp = index1 // 3 * 3 + index2 // 3
+                        if z[temp]:
+                            return False
+                        
+                        x[index1] = y[index2] = z[temp] = True
+        
+        return True
+
+fast py:
+
+def isValidSudoku(self, board):
+    return (self.is_row_valid(board) and
+            self.is_col_valid(board) and
+            self.is_square_valid(board))
+
+def is_row_valid(self, board):
+    for row in board:
+        if not self.is_unit_valid(row):
+            return False
+    return True
+
+def is_col_valid(self, board):
+    for col in zip(*board):
+        if not self.is_unit_valid(col):
+            return False
+    return True
+    
+def is_square_valid(self, board):
+    for i in (0, 3, 6):
+        for j in (0, 3, 6):
+            square = [board[x][y] for x in range(i, i + 3) for y in range(j, j + 3)]
+            if not self.is_unit_valid(square):
+                return False
+    return True
+    
+def is_unit_valid(self, unit):
+    unit = [i for i in unit if i != '.']
+    return len(set(unit)) == len(unit)
+
+cpp:
+
+class Solution
+{
+public:
+    bool isValidSudoku(vector<vector<char> > &board)
+    {
+        int used1[9][9] = {0}, used2[9][9] = {0}, used3[9][9] = {0};
+        
+        for(int i = 0; i < board.size(); ++ i)
+            for(int j = 0; j < board[i].size(); ++ j)
+                if(board[i][j] != '.')
+                {
+                    int num = board[i][j] - '0' - 1, k = i / 3 * 3 + j / 3;
+                    if(used1[i][num] || used2[j][num] || used3[k][num])
+                        return false;
+                    used1[i][num] = used2[j][num] = used3[k][num] = 1;
+                }
+        
+        return true;
+    }
+};
