@@ -1,0 +1,36 @@
+python slow:
+
+from numpy import prod
+class Solution(object):
+    def productExceptSelf(self, nums):
+        temp = prod(nums)
+        return [prod(nums[:i] + nums[i+1:]) if (nums[i]==0) else temp/nums[i] for i in range(len(nums))]
+
+python fast:
+
+class Solution:
+    def productExceptSelf(self, nums):
+        ans, suf, pre = [1]*len(nums), 1, 1
+        for i in range(len(nums)):
+            ans[i]*= pre               
+            pre*= nums[i]
+            ans[-1-i]*= suf
+            suf*= nums[-1-i]
+        return ans
+
+cpp:
+
+class Solution {
+public:
+    vector<int> productExceptSelf(vector<int>& nums) {
+        vector<int> ans(size(nums),1);
+        for(int i = 0, suf = 1, pre = 1, n = size(nums); i < n; i++) {
+            ans[i] *= pre;             // similar to prefix product being calculated in 1st loop of previous solution
+            pre *= nums[i];			
+            ans[n-1-i] *= suf;         // similar to suffix product being calculated in 2nd loop of previous solution
+            suf *= nums[n-1-i];
+        }
+        return ans;
+    }
+};
+
