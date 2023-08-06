@@ -1,0 +1,22 @@
+CPP:
+
+class Solution {
+public:
+    int longestConsecutive(vector<int>& nums) {
+        sort(nums.begin(), nums.end());
+        int temp, templength = 0, length = 0;
+        for (int i: nums){
+            if (i==temp) continue;
+            else if (i == temp + 1){
+                temp++;
+                templength++;
+            }
+            else{
+                length = max(length,templength);
+                templength =1;
+                temp = i;
+            }
+        }
+        return max(templength,length);
+    }
+};
