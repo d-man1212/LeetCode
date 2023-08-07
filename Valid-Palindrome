@@ -1,0 +1,52 @@
+cpp:
+class Solution {
+public:
+    bool isPalindrome(string s) {
+        int i=0, j=s.length()-1;
+        while(i<j){
+            if (isalnum(s[i])){
+                if (isalnum(s[j])){
+                    if (tolower(s[i])==tolower(s[j])){
+                        i++;
+                        j--;
+                    }
+                    else return false;
+                }
+                else j--;
+            }
+            else i++;
+        }
+        return true;
+    }
+};
+
+python:
+
+class Solution(object):
+    # def isPalindrome(self, s):
+    #     temp="".join(i.lower() for i in s if i.isalnum())
+    #     return temp == temp[::-1]
+    def isPalindrome(self, s):
+        i=0
+        j=len(s)-1
+        while(i<j):
+            if s[i].isalnum():
+                if s[j].isalnum():
+                    if s[i].lower()==s[j].lower():
+                        i+=1
+                        j-=1
+                    else:
+                        return False
+                else:
+                    j-=1
+            else:
+                i+=1
+        return True
+
+def isPalindrome(self, s):
+    s_alnum = list(filter(str.isalnum, s.lower()))
+    mid = len(s_alnum) // 2
+    for i in range(mid):
+        if s_alnum[i] != s_alnum[-i-1]:
+            return False
+    return True
