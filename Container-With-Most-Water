@@ -1,0 +1,66 @@
+cpp:
+
+class Solution {
+public:
+    int maxArea(vector<int>& height) {
+        int j = height.size() - 1;
+        if (j == 1) {
+            return min(height[0], height[1]);
+        }
+        int i = 0;
+        int area = 0;
+        while (i < j) {
+            int l = height[i];
+            int r = height[j];
+            if (l > r) {
+                area = max(area, r * (j - i));
+                j--;
+                while (height[j] < r) {
+                    j--;
+                }
+            } else if (l < r) {
+                area = max(area, l * (j - i));
+                i++;
+                while (height[i] < l) {
+                    i++;
+                }
+            } else {
+                area = max(area, l * (j - i));
+                i++;
+                j--;
+            }
+        }
+        return area;
+    }
+};
+
+
+python:
+
+class Solution(object):
+    def maxArea(self, height):
+        j=len(height)-1
+        if j==1:
+            return min(height)
+        i=0
+        area=0
+        while(i<j):
+            l=height[i]
+            r=height[j]
+            if l>r:
+                area=max(area,r*(j-i))
+                j-=1
+                while(height[j]<r):
+                    j-=1
+            elif l<r:
+                area=max(area,l*(j-i))
+                i+=1
+                while(height[i]<l):
+                    i+=1
+            else:
+                area=max(area,l*(j-i))
+                i+=1
+                j-=1
+        return area
+
+
