@@ -1,0 +1,31 @@
+Python:
+
+class Solution(object):
+    def isValid(self, s):
+        stack = []
+        brackets = {"(": ")", "[": "]", "{": "}"}
+        
+        for char in s:
+            if char in brackets:
+                stack.append(char)
+            elif not stack or brackets[stack.pop()] != char:
+                return False
+        
+        return not stack
+
+
+CPP:
+
+class Solution {
+public:
+    bool isValid(string s) {
+        stack<char> stack;
+        unordered_map<char, char> brackets = {{'(', ')'}, {'[', ']'}, {'{', '}'}};
+        for (char c : s) {
+            if (brackets.find(c) != brackets.end()) stack.push(c);
+            else if (stack.empty() || brackets[stack.top()] != c) return false;
+            else stack.pop();
+        }
+        return stack.empty();
+    }
+};
