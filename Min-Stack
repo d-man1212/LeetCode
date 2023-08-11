@@ -1,0 +1,56 @@
+Python:
+
+class MinStack:
+    def __init__(self):
+        self.s = []
+        self.minElement = float('inf')
+        
+    def push(self, val):
+        if self.minElement >= val:
+            self.s.append(self.minElement)
+            self.minElement = val
+        self.s.append(val)
+        
+    def pop(self):
+        if self.minElement == self.s[-1]:
+            self.s.pop()
+            self.minElement = self.s[-1]
+        self.s.pop()
+        
+    def top(self):
+        return self.s[-1]
+        
+    def getMin(self):
+        return self.minElement
+
+CPP:
+
+	class MinStack {
+	public:
+		stack<int>s;
+		int minElement = INT_MAX;
+
+		void push(int val) {
+			if(minElement>=val){
+				s.push(minElement);
+				minElement = val;
+			}
+			  s.push(val);
+		}
+
+		void pop() {
+			if(minElement==s.top()){
+				s.pop();
+				minElement = s.top();
+			}
+			s.pop();
+		}
+
+		int top() {
+			return s.top();
+		}
+
+		int getMin() {
+			return minElement;
+		}
+	};
