@@ -1,0 +1,42 @@
+CPP:
+
+class Solution {
+public:
+    int evalRPN(vector<string>& tokens) {
+        stack<int> stack;
+        for (const string& token : tokens) {
+            if (isdigit(token[0]) || (token[0] == '-' && isdigit(token[1]))) stack.push(stoi(token));
+            else {
+                int b = stack.top(); stack.pop();
+                int a = stack.top(); stack.pop();
+                if (token == "+") stack.push(a + b);
+                else if (token == "-")stack.push(a - b);
+                else if (token == "*")stack.push(a * b);
+                else if (token == "/") stack.push(int(a / b));
+            }
+        }
+        return stack.top();
+    }
+};
+
+Python:
+
+class Solution(object):
+    def evalRPN(self, tokens):
+        stack = []
+
+        for token in tokens:
+            if token.isdigit() or (token[0] == '-' and token[1:].isdigit()):
+                stack.append(int(token))
+            else:
+                b = stack.pop()
+                a = stack.pop()
+                if token == "+":
+                    stack.append(a + b)
+                elif token == "-":
+                    stack.append(a - b)
+                elif token == "*":
+                    stack.append(a * b)
+                elif token == "/":
+                    stack.append(int(a / float(b)))
+        return stack[0]
