@@ -1,0 +1,34 @@
+CPP:
+class Solution {
+public:
+    vector<string> generateParenthesis(int n) {
+        vector<string> L;
+        addBracket(L, "", n, 0);
+        return L;
+    }
+    void addBracket(vector<string> &L, string s, int l, int r){
+        if(l==0 && r==0) {
+            L.push_back(s);
+            return;
+        }
+        if(r > 0){ addBracket(L, s+")", l, r-1); }
+        if(l > 0){ addBracket(L, s+"(", l-1, r+1); }
+    }
+};
+
+PYTHON:
+
+class Solution(object):
+	def generateParenthesis(self, n):
+		def addBracket(l, r, s):
+			if len(s) == n * 2:
+				L.append(s)
+				return 
+			if l < n:
+				addBracket(l + 1, r, s + '(')
+
+			if r < l:
+				addBracket(l, r + 1, s + ')')
+		L = []
+		addBracket(0, 0, '')
+		return L
